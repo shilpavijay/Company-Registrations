@@ -1,7 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from datetime import date
 
-df = pd.read_csv('E:\Project\Company-Registration\company_master_2015_Karnataka.csv')
+df = pd.read_csv('E:\Project\Company-Registration\company_2015_KAR.csv')
 # print(df.head())
 
 
@@ -13,11 +14,8 @@ df.columns = ['Corporate_ID','RegYear','CompanyName',
 
 #obtaining year from 'date of registration':
 
-df['RegYear']=pd.to_datetime(df['RegYear'])
-df['RegYear'].dt.year
-print(df['RegYear'].dt.year.head())
+df['RegYear'] = pd.to_datetime(df['RegYear']).dt.year
 
-plt.scatter(df.groupby['RegYear'], df.groupby['RegYear'].count())
-plt.show() 
-
-
+dfYear= pd.DataFrame(df.groupby('RegYear')['Corporate_ID'].count())
+dfYear.plot(kind='bar')
+plt.show()
